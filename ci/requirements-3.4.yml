@@ -3,7 +3,7 @@ channels:
   - conda-forge
 dependencies:
   - python=3.4
-  - dateutil
+  - python-dateutil
   - h5py
   - netCDF4
   - numpy
