@@ -1,6 +1,6 @@
 language: python
 
-sudo: false
+sudo: required
 
 python:
   - 2.7
@@ -42,8 +42,9 @@ before_install:
   # ------------------------------------
   - conda env create --quiet --file ci/requirements-$TRAVIS_PYTHON_VERSION.yml
   - source activate test_env
-  - if [ "${NCO_VERSION}" != "apt" ];
-    then conda install nco==${NCO_VERSION};
+  - if [ "${NCO_VERSION}" == "apt" ];
+    then sudo apt-get -qq update && sudo apt-get install -y netcdf-bin libnetcdf-dev nco;
+    else conda install nco==${NCO_VERSION};
     fi
 
   # Debugging information
