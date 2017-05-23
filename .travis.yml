@@ -14,6 +14,11 @@ env:
   - NCO_VERSION=4.6.1
   - NCO_VERSION=4.6.6
 
+addons:
+  apt:
+    packages:
+      - nco
+
 before_install:
   # Install miniconda
   # -----------------
@@ -37,9 +42,8 @@ before_install:
   # ------------------------------------
   - conda env create --quiet --file ci/requirements-$TRAVIS_PYTHON_VERSION.yml
   - source activate test_env
-  - if [ "${NCO_VERSION}" == "apt" ];
-    then apt-get install libnetcdf-dev nco;
-    else conda install nco==${NCO_VERSION};
+  - if [ "${NCO_VERSION}" != "apt" ];
+    then conda install nco==${NCO_VERSION};
     fi
 
   # Debugging information
